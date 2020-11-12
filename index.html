@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Welcome to Firebase Hosting</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+
+
+    <style media="screen">
+      body {
+        background: #eceff1;
+        color: rgba(0, 0, 0, 0.87);
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      #message {
+        background: white;
+        max-width: 360px;
+        margin: 100px auto 16px;
+        padding: 32px 24px;
+        border-radius: 3px;
+      }
+      #message h2 {
+        color: #ffa100;
+        font-weight: bold;
+        font-size: 16px;
+        margin: 0 0 8px;
+      }
+      #message h1 {
+        font-size: 22px;
+        font-weight: 300;
+        color: rgba(0, 0, 0, 0.6);
+        margin: 0 0 16px;
+      }
+      #message p {
+        line-height: 140%;
+        margin: 16px 0 24px;
+        font-size: 14px;
+      }
+      #message a {
+        display: block;
+        text-align: center;
+        background: #039be5;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: white;
+        padding: 16px;
+        border-radius: 4px;
+      }
+      #message,
+      #message a {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
+      #load {
+        color: rgba(0, 0, 0, 0.4);
+        text-align: center;
+        font-size: 13px;
+      }
+      @media (max-width: 600px) {
+        body,
+        #message {
+          margin-top: 0;
+          background: white;
+          box-shadow: none;
+        }
+        body {
+          border-top: 16px solid #ffa100;
+        }
+      }
+
+      #overlay {
+  background: #ffffff;
+  color: #666666;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 5000;
+  top: 0;
+  left: 0;
+  float: left;
+  text-align: center;
+  padding-top: 25%;
+  opacity: .80;
+}
+.spinner {
+    margin: 0 auto;
+    height: 64px;
+    width: 64px;
+    animation: rotate 0.8s infinite linear;
+    border: 5px solid firebrick;
+    border-right-color: transparent;
+    border-radius: 50%;
+}
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+    </style>
+  </head>
+  <body>
+    <div id="message">
+      <div class="form-group">
+        <label for="roll">Student ID</label>
+        <input
+          type="text"
+          class="form-control"
+          id="roll"
+          aria-describedby="emailHelp"
+          placeholder="Enter student roll number"
+        />
+      </div>
+      <div class="form-group">
+        <label for="book">Book ID</label>
+        <input
+          type="text"
+          class="form-control"
+          id="book"
+          aria-describedby="emailHelp"
+          placeholder="Enter book ID"
+        />
+      </div>
+      <button type="button" class="btn btn-primary" id="checkout">
+        Check out
+      </button>
+    </div>
+    <p id="load"></p>
+    <div id="overlay" style="display:none;">
+      <div class="spinner"></div>
+      <br/>
+      Loading...
+  </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-analytics.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/8.0.1/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.0.1/firebase-database.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.0.1/firebase-messaging.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.0.1/firebase-storage.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyBt1kHMOymmocNdnOisVUHvyIiMssMaPyQ",
+    authDomain: "mad-lms.firebaseapp.com",
+    databaseURL: "https://mad-lms.firebaseio.com",
+    projectId: "mad-lms",
+    storageBucket: "mad-lms.appspot.com",
+    messagingSenderId: "608260087672",
+    appId: "1:608260087672:web:94659aa44d4321fd74b28d",
+    measurementId: "G-93JR68FT2P"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+    <script>
+      function bookRemaining(count) {
+        let text = count + " books remaining";
+        $("#load").text(text);
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        // const messaging = firebase.messaging();
+        // messaging.onTokenRefresh(() => {
+        //   messaging
+        //     .getToken({
+        //       vapidKey:
+        //         "BHLS9I0A2gBM-GhVw7qYLhaR_wS2pjFqohvlM56IcYgn2XFvUOuMTSBxCKfaUGr9kH2_khk6CC-o4Ahw2K_yyHk",
+        //     })
+        //     .then((currentToken) => {
+        //       if (currentToken) {
+        //         console.log(currentToken);
+        //         sendTokenToServer(currentToken);
+        //         updateUIForPushEnabled(currentToken);
+        //       } else {
+        //         // Show permission request.
+        //         console.log(
+        //           "No registration token available. Request permission to generate one."
+        //         );
+        //         // Show permission UI.
+        //         updateUIForPushPermissionRequired();
+        //         setTokenSentToServer(false);
+        //       }
+        //     })
+        //     .catch((err) => {
+        //       console.log("An error occurred while retrieving token. ", err);
+        //       showToken("Error retrieving registration token. ", err);
+        //       setTokenSentToServer(false);
+        //     });
+        // });
+        $("#checkout").click((e) => {
+          e.preventDefault();
+          $('#overlay').fadeIn();
+          let roll = $("#roll").val();
+          let bookId = parseInt($("#book").val());
+          var count;
+          let bookRef = firebase.database().ref("books/" + (bookId - 1));
+          bookRef.once("value").then(function (snapshot) {
+            let bookData = snapshot.val();
+            count = snapshot.val().count || 0;
+
+            if (count > 0) {
+              bookData["count"] = count - 1;
+              bookRef.set(bookData, function (err) {
+                if (err) {
+                  console.log("error occured", err);
+                } else {
+                  bookRef.once("value").then(function (book) {
+                    let c = book.val().count || 0;
+                    let id = book.val().id || "";
+                    let name = book.val().name || "";
+
+                    bookRemaining(c);
+                    // const payload = {
+                    //   notification: {
+                    //     title: "Book Count Remainder",
+                    //     body: "There are only " + c + " book(s) available",
+                    //   },
+                    //   topic: id,
+                    // };
+                    if (c <= 3) {
+                      if(c==null){
+                        c=0;
+                      } 
+                      let url = "./notification.php";
+                      let data = {
+                        topic:id,
+                        count:c,
+                        name:encodeURIComponent(name)
+                      };
+                      $.post(url,data,(data,status)=>{
+                        alert("Notification sent"+data+"\nStatus: " + status);
+                      })
+                      // location.href =
+                      //   "./notification.php?topic=" + id + "&count=" + c+"&name="+name;
+                      // messaging
+                      //   .send(payload)
+                      //   .then((response) => {
+                      //     // Response is a message ID string.
+                      //     console.log("Successfully sent message:", response);
+                      //   })
+                      //   .catch((error) => {
+                      //     console.log("Error sending message:", error);
+                      //   });
+                    }
+                  });
+                }
+              });
+            }
+            $('#overlay').fadeOut();
+          });
+          // bookRef.on("value", function (snapshot) {
+          //   updateStarCount(postElement, snapshot.val());
+          // });
+          // bookRef.transaction(function (book) {
+          //   if (book.id === bookId && book.count > 0) {
+          //     book.count--;
+          //     bookRemaining(book.count);
+          //   } else {
+          //     bookRemaining(0);
+          //   }
+          //   return book;
+          // });
+
+          return false;
+        });
+      });
+    </script>
+  </body>
+</html>
