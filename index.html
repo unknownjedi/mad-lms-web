@@ -185,34 +185,6 @@
         $("#load").text(text);
       }
       document.addEventListener("DOMContentLoaded", function () {
-        // const messaging = firebase.messaging();
-        // messaging.onTokenRefresh(() => {
-        //   messaging
-        //     .getToken({
-        //       vapidKey:
-        //         "BHLS9I0A2gBM-GhVw7qYLhaR_wS2pjFqohvlM56IcYgn2XFvUOuMTSBxCKfaUGr9kH2_khk6CC-o4Ahw2K_yyHk",
-        //     })
-        //     .then((currentToken) => {
-        //       if (currentToken) {
-        //         console.log(currentToken);
-        //         sendTokenToServer(currentToken);
-        //         updateUIForPushEnabled(currentToken);
-        //       } else {
-        //         // Show permission request.
-        //         console.log(
-        //           "No registration token available. Request permission to generate one."
-        //         );
-        //         // Show permission UI.
-        //         updateUIForPushPermissionRequired();
-        //         setTokenSentToServer(false);
-        //       }
-        //     })
-        //     .catch((err) => {
-        //       console.log("An error occurred while retrieving token. ", err);
-        //       showToken("Error retrieving registration token. ", err);
-        //       setTokenSentToServer(false);
-        //     });
-        // });
         $("#checkout").click((e) => {
           e.preventDefault();
           $('#overlay').fadeIn();
@@ -236,13 +208,6 @@
                     let name = book.val().name || "";
 
                     bookRemaining(c);
-                    // const payload = {
-                    //   notification: {
-                    //     title: "Book Count Remainder",
-                    //     body: "There are only " + c + " book(s) available",
-                    //   },
-                    //   topic: id,
-                    // };
                     if (c <= 3) {
                       if(c==null){
                         c=0;
@@ -256,17 +221,6 @@
                       $.post(url,data,(data,status)=>{
                         alert("Notification sent"+data+"\nStatus: " + status);
                       })
-                      // location.href =
-                      //   "./notification.php?topic=" + id + "&count=" + c+"&name="+name;
-                      // messaging
-                      //   .send(payload)
-                      //   .then((response) => {
-                      //     // Response is a message ID string.
-                      //     console.log("Successfully sent message:", response);
-                      //   })
-                      //   .catch((error) => {
-                      //     console.log("Error sending message:", error);
-                      //   });
                     }
                   });
                 }
@@ -274,18 +228,6 @@
             }
             $('#overlay').fadeOut();
           });
-          // bookRef.on("value", function (snapshot) {
-          //   updateStarCount(postElement, snapshot.val());
-          // });
-          // bookRef.transaction(function (book) {
-          //   if (book.id === bookId && book.count > 0) {
-          //     book.count--;
-          //     bookRemaining(book.count);
-          //   } else {
-          //     bookRemaining(0);
-          //   }
-          //   return book;
-          // });
 
           return false;
         });
